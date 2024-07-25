@@ -41,8 +41,8 @@ pipeline{
                 withCredentials([azureServicePrincipal('acrprincipal')]) {
                 sh 'az login --service-principal -u ${AZURE_CLIENT_ID} -p ${AZURE_CLIENT_SECRET} --tenant ${AZURE_TENANT_ID}'
                 }
-                withCredentials([usernamePassword(credentialsId: '', passwordVariable: 'password', usernameVariable: 'username')]) {
-                sh 'az webapp config container set --name vijay --resource-group Tetris --docker-custom-image-name vijay.azurecr.io/tetris:latest --docker-registry-server-url https://vijay.azurecr.io --docker-registry-server-user ${username} --docker-registry-server-password ${password}'
+                withCredentials([usernamePassword(credentialsId: 'acr_creds', passwordVariable: 'password', usernameVariable: 'username')]) {
+                sh 'az webapp config container set --name tetris-game --resource-group payment --docker-custom-image-name ${ACR_LOGIN_SERVER}/${REPO_NAME}:$BUILD_NUMBER --docker-registry-server-url https://{ACR_LOGIN_SERVER} --docker-registry-server-user ${username} --docker-registry-server-password ${password}'
                 }
             }
         }
