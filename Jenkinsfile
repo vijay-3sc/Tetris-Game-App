@@ -28,12 +28,12 @@ pipeline{
         }
         stage('install Azure CLI'){
             steps{
-                sh '''
-                apt install py3-pip
-                apt install gcc musl-dev python3-dev libffi-dev openssl-dev cargo make
-                pip install --upgrade pip
-                pip install azure-cli
-                '''
+                sh 'sudo apt install curl'
+                sh 'curl -sL https://aka.ms/InstallAzureCli | bash'
+                sh 'sudo apt install py3-pip'
+                sh 'sudo apt install gcc musl-dev python3-dev libffi-dev openssl-dev cargo make'
+                sh 'sudo apt pip install --upgrade pip'
+                sh 'sudo apt pip install azure-cli'
             }
         }
         stage('deploy web app'){
