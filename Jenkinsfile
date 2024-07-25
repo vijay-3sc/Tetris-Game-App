@@ -14,7 +14,7 @@ pipeline{
         }
         stage('build docker image'){
             steps{
-                sh 'docker buildx prune'
+                sh 'docker buildx prune --force'
                 sh 'docker build -t ${ACR_LOGIN_SERVER}/${REPO_NAME}:$BUILD_NUMBER .'
             }
         }
